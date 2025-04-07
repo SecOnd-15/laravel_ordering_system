@@ -7,16 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        // Change the role column to use enum (if not already)
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('customer')->after('password'); // Default role is customer
-            $table->string('role')->default('customer'); // Or use enum if preferredzzzzzzzzzz
+            $table->enum('role', ['admin', 'customer'])
+                  ->default('customer')
+                  ->change();
         });
     }
 
     public function down(): void
     {
+        // Revert back to string if needed
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+            $table->string('role')->default('customer')->change();
         });
     }
 };

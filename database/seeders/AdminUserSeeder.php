@@ -20,13 +20,20 @@ class AdminUserSeeder extends Seeder
             ]
         );
 
+        User::firstOrCreate(
+            ['email' => 'gilgregenemantilla@gmail.com'],
+            [
+                'name' => 'Gilgre Gene Mantilla',
+                'password' => Hash::make('1234'), // Change this to a secure password
+                'role' => 'admin'
+            ]
+        );
+
         // Create sample customer users for testing
-        User::factory()->count(5)->create([
-            'role' => 'customer'
-        ]);
+        // User::factory()->count(5)->create([
+        //     'role' => 'customer'
+        // ]);
 
         $this->command->info('Admin user created successfully!');
-        $this->command->info('Email: admin@foodiefriendly.com');
-        $this->command->warn('Password: adminpassword (change this in production)');
     }
 }
